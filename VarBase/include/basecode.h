@@ -1,16 +1,25 @@
 //библиотека
+#ifndef BASECODE_H
+#define BASECODE_H
 #include <iostream>
 #include <fstream>
 #include <cstring>
 #include <vector>
+#include <cstdlib>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+#define SHMSZ 2097152
+
 using namespace std;
 
 class Var //переменная
 {
 protected:
     string mName;
+    int mType;
 public:
-    Var* getType();
+    int getType();
     string getName();
 };
 
@@ -45,7 +54,6 @@ class Library //библиотека
 {    
 public:
     vector <Var*> libr;//вектор переменных
-//public:
     Library(){}
     Var* Create(string Name, string beginValue);
     Var* Create(string Name, double beginValue);
@@ -54,4 +62,9 @@ public:
     int Delete(string Name);
     int Load();
     int Save();
+    //friend
 };
+Library *MkSM();
+
+//void DtSM(Library *l);
+#endif
